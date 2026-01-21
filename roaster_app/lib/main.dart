@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const RoasterApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class RoasterApp extends StatelessWidget {
+  const RoasterApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: const MainTabs(),
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: MainTabs(),
     );
   }
 }
@@ -21,26 +22,86 @@ class MainTabs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 5,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Flutter App'),
+          title: const Text('Tribal Coffee Roastery'),
           bottom: const TabBar(
+            isScrollable: true,
             tabs: [
-              Tab(text: 'Tab 1'),
-              Tab(text: 'Tab 2'),
-              Tab(text: 'Tab 3'),
+              Tab(text: 'Roast Sessions'),
+              Tab(text: 'Beans'),
+              Tab(text: 'Costs'),
+              Tab(text: 'Stats'),
+              Tab(text: 'Maintenance'),
             ],
           ),
         ),
         body: const TabBarView(
           children: [
-            Center(child: Text('Tab 1')),
-            Center(child: Text('Tab 2')),
-            Center(child: Text('Tab 3')),
+            RoastSessionsTab(),
+            BeansTab(),
+            CostsTab(),
+            StatsTab(),
+            MaintenanceTab(),
           ],
         ),
       ),
+    );
+  }
+}
+
+class RoastSessionsTab extends StatelessWidget {
+  const RoastSessionsTab({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text('Roast Sessions'),
+    );
+  }
+}
+
+class BeansTab extends StatelessWidget {
+  const BeansTab({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text('Bean Types'),
+    );
+  }
+}
+
+class CostsTab extends StatelessWidget {
+  const CostsTab({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text('Costs'),
+    );
+  }
+}
+
+class StatsTab extends StatelessWidget {
+  const StatsTab({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text('Stats'),
+    );
+  }
+}
+
+class MaintenanceTab extends StatelessWidget {
+  const MaintenanceTab({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text('Maintenance'),
     );
   }
 }
