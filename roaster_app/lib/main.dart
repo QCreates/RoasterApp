@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 
-import 'tabs/roast_sessions_tab.dart';
+import 'navigation/app_section.dart';
+
 import 'tabs/beans_tab.dart';
+import 'tabs/roast_sessions_tab.dart';
+import 'tabs/bean_lots_tab.dart';
 import 'tabs/costs_tab.dart';
-import 'tabs/stats_tab.dart';
 import 'tabs/maintenance_tab.dart';
+import 'tabs/stats_tab.dart';
 
 void main() {
   runApp(const RoasterApp());
@@ -15,44 +18,106 @@ class RoasterApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
+      title: 'Roaster App',
       debugShowCheckedModeBanner: false,
-      home: MainTabs(),
+      theme: ThemeData(useMaterial3: true),
+      home: const HomeScreen(),
     );
   }
 }
 
-class MainTabs extends StatelessWidget {
-  const MainTabs({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  AppSection _currentSection = AppSection.beans;
+
+  Widget _buildContent() {
+    switch (_currentSection) {
+      case AppSection.beans:
+        return const BeansTab();
+
+      case AppSection.roastSessions:
+        return const RoastSessionsTab();
+
+      case AppSection.beanLots:
+        return const BeanLotsTab();
+
+      case AppSection.costs:
+        return const CostsTab();
+
+      case AppSection.maintenance:
+        return const MaintenanceTab();
+
+      case AppSection.stats:
+        return const StatsTab();
+    }
+  }
+
+  String _titleForSection() {
+    switch (_currentSection) {
+      case AppSection.beans:
+        return 'Beans';
+      case AppSection.roastSessions:
+        return 'Roast Sessions';
+      case AppSection.beanLots:
+        return 'Bean Lots';
+      case AppSection.costs:
+        return 'Costs';
+      case AppSection.maintenance:
+        return 'Maintenance';
+      case AppSection.stats:
+        return 'Stats';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 5,
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Tribal Coffee Roastery'),
-          bottom: const TabBar(
-            isScrollable: true,
-            tabs: [
-              Tab(text: 'Roast Sessions'),
-              Tab(text: 'Beans'),
-              Tab(text: 'Costs'),
-              Tab(text: 'Stats'),
-              Tab(text: 'Maintenance'),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(_titleForSection()),
+        actions: [
+          PopupMenuButton<AppSection>(
+            onSelected: (section) {
+              setState(() {
+                _currentSection = section;
+              });
+            },
+            itemBuilder: (context) => const [
+              PopupMenuItem(
+                value: AppSection.roastSessions,
+                child: Text('Roast Sessions'),
+              ),
+              PopupMenuItem(
+                value: AppSection.beans,
+                child: Text('Beans'),
+              ),
+              PopupMenuItem(
+                value: AppSection.beanLots,
+                child: Text('Bean Lots'),
+              ),
+              PopupMenuItem(
+                value: AppSection.costs,
+                child: Text('Costs'),
+              ),
+              PopupMenuItem(
+                value: AppSection.maintenance,
+                child: Text('Maintenance'),
+              ),
+              PopupMenuItem(
+                value: AppSection.stats,
+                child: Text('Stats'),
+              ),
             ],
           ),
-        ),
-        body: const TabBarView(
-          children: [
-            RoastSessionsTab(),
-            BeansTab(),
-            CostsTab(),
-            StatsTab(),
-            MaintenanceTab(),
-          ],
-        ),
+        ],
       ),
+      body: _buildContent(),
     );
   }
 }
