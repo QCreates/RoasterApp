@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 
+import 'tabs/roast_sessions_tab.dart';
+import 'tabs/beans_tab.dart';
+import 'tabs/costs_tab.dart';
+import 'tabs/stats_tab.dart';
+import 'tabs/maintenance_tab.dart';
+
 void main() {
   runApp(const RoasterApp());
 }
@@ -47,61 +53,6 @@ class MainTabs extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-class RoastSessionsTab extends StatelessWidget {
-  const RoastSessionsTab({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Roast Sessions'),
-    );
-  }
-}
-
-class BeansTab extends StatelessWidget {
-  const BeansTab({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Bean Types'),
-    );
-  }
-}
-
-class CostsTab extends StatelessWidget {
-  const CostsTab({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Costs'),
-    );
-  }
-}
-
-class StatsTab extends StatelessWidget {
-  const StatsTab({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Stats'),
-    );
-  }
-}
-
-class MaintenanceTab extends StatelessWidget {
-  const MaintenanceTab({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Maintenance'),
     );
   }
 }
